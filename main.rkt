@@ -9,9 +9,21 @@
 ( define boardYResolution 600 )
 
 ; debug
-( define prev "♜♞♝♛♚♝♞♜♟♟♟♟♟♟♟♟☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐♙♙♙♙♙♙♙♙♖♘♗♕♔♗♘♖" )
+( define prev "☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐" )
 
-( define actual "♜♞♝♛♚♝♞♜♟♟♟♟♟♟♟☐☐☐☐☐☐☐☐♟☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐☐♙♙♙♙♙♙♙♙♖♘♗♕♔♗♘♖" )
+( define actual "♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙" )
+
+#| "
+☐☐☐☐☐☐☐☐
+☐☐☐☐☐☐☐☐
+☐☐☐☐☐☐☐☐
+☐☐☐☐☐☐☐☐
+☐☐☐☐☐☐☐☐
+☐☐☐☐☐☐☐☐
+☐☐☐☐☐☐☐☐
+☐☐☐☐☐☐☐☐
+" )
+|#
 
 #| "
 ♜♞♝♛♚♝♞♜
@@ -80,13 +92,16 @@
 
     ( define-values ( column row ) ( getPieceStrCoords strPos boardSize ) )
 
-    ( if ( even? column )
+    (printf "column: ~a row: ~a\n" column row)
+    (printf "strPos: ~a\n" strPos)
+
+    ( if ( even? row )
         (if ( even? strPos ) 
             "white"
-            "black"
+            "Dim Gray"
         )
         (if ( even? strPos ) 
-            "black"
+            "Dim Gray"
             "white"
         )    
     )
@@ -95,7 +110,7 @@
 ( define ( getFileName chr ) 
     ; character: str (carácter)
 
-    (cond 
+    ( cond 
         ( ( char=? #\♜ chr ) "resources/bRook.png" )
         ( ( char=? #\♞ chr ) "resources/bKnight.png" )
         ( ( char=? #\♝ chr ) "resources/bBishop.png" )
@@ -109,74 +124,7 @@
         ( ( char=? #\♔ chr ) "resources/wKing.png" )
         ( ( char=? #\♙ chr ) "resources/wPawn.png" )
         ( ( char=? #\☐ chr ) "resources/emptyBox.png" )
-    )
-
-    #|
-    ( if ( char=? #\♜ chr )
-        "resources/bRook.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♞ chr )
-        "resources/bKnight.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♝ chr ) 
-        "resources/bBishop.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♛ chr )
-        "resources/bQueen.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♚ chr ) 
-        "resources/bKing.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♟ chr )
-        "resources/bPawn.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♖ chr )
-        "resources/wRook.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♘ chr )
-        "resources/wKnight.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♗ chr )
-        "resources/wBishop.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♕ chr )
-        "resources/wQueen.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♔ chr )
-        "resources/wKing.png"
-        ( void )
-    )
-
-    ( if ( char=? #\♙ chr )
-        "resources/wPawn.png"
-        ( void )
-    )
-
-    ( if ( char=? #\☐ chr )
-        "resources/emptyBox.png"
-        ( void )
-    )
-    |#
+    ) ; end cond
 ) ; end define getFileName
 
 ( define ( graphBoard viewport prev actual )   
@@ -197,15 +145,16 @@
             ( if ( char=? ( string-ref prev counter ) ( string-ref actual counter ) )
                 ( graphBoardAux ( + counter 1 ) )
                 ( begin
-                    ( ( draw-rectangle
+                    ( printf "color: ~a\n" ( getBoxColor counter getPieceStrCoords boardSize ) )
+                    ( ( draw-solid-rectangle
                         viewport )
                         ( getBoxPos strX strY boxSize )
                         boxSize boxSize 
                         ( getBoxColor counter getPieceStrCoords boardSize ) 
                     )
-                    ( display ( string-ref actual counter ) )
-                    ( display counter )
-                    ( sleep 5 )
+                    #| ( display ( string-ref actual counter ) ) |#
+                    #| ( display counter ) |#
+                    #| ( sleep 5 ) |#
                     ( ( ( draw-pixmap-posn ( getFileName ( string-ref actual counter ) ) ) viewport ) ( getPiecePos strX strY boxSize pieceSize getBoxPos ) )
                     ( graphBoardAux ( + counter 1 ) )
                 ) ; end begin 
