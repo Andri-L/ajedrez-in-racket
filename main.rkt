@@ -95,6 +95,23 @@
 ( define ( getFileName chr ) 
     ; character: str (carácter)
 
+    (cond 
+        ( ( char=? #\♜ chr ) "resources/bRook.png" )
+        ( ( char=? #\♞ chr ) "resources/bKnight.png" )
+        ( ( char=? #\♝ chr ) "resources/bBishop.png" )
+        ( ( char=? #\♛ chr ) "resources/bQueen.png" )
+        ( ( char=? #\♚ chr ) "resources/bKing.png" )
+        ( ( char=? #\♟ chr ) "resources/bPawn.png" )
+        ( ( char=? #\♖ chr ) "resources/wRook.png" )
+        ( ( char=? #\♘ chr ) "resources/wKnight.png" )
+        ( ( char=? #\♗ chr ) "resources/wBishop.png" )
+        ( ( char=? #\♕ chr ) "resources/wQueen.png" )
+        ( ( char=? #\♔ chr ) "resources/wKing.png" )
+        ( ( char=? #\♙ chr ) "resources/wPawn.png" )
+        ( ( char=? #\☐ chr ) "resources/emptyBox.png" )
+    )
+
+    #|
     ( if ( char=? #\♜ chr )
         "resources/bRook.png"
         ( void )
@@ -159,64 +176,6 @@
         "resources/emptyBox.png"
         ( void )
     )
-
-    #|
-    ( if ( string=? "TN" chr )
-        "resources/bRook.png"
-        ( void )
-    )
-
-    ( if ( string=? "CN" chr )
-        "resources/bKnight.png"
-        ( void )
-    )
-
-    ( if ( string=? "AN" chr ) 
-        "resources/bBishop.png"
-        ( void )
-    )
-
-    ( if ( string=? "RN" chr )
-        "resources/bKing.png"
-        ( void )
-    )
-
-    ( if ( string=? "PN" chr ) 
-        "resources/bPawn.png"
-        ( void )
-    )
-
-    ( if ( string=? "PB" chr )
-        "resources/wPawn.png"
-        ( void )
-    )
-
-    ( if ( string=? "TB" chr )
-        "resources/wRook.png"
-        ( void )
-    )
-
-    ( if ( string=? "CB" chr )
-        "resources/wBishop.png"
-        ( void )
-    )
-
-    ( if ( string=? "AB" chr )
-        "resources/wKnight.png"
-        ( void )
-    )
-
-    ( if ( string=? "RB" chr )
-        "resources/wQueen.png"
-        ( void )
-    )
-
-    ( if ( string=? "rB" chr )
-        "resources/wKing.png"
-        ( void )
-    )
-
-    "resources/emptyBox.png"
     |#
 ) ; end define getFileName
 
